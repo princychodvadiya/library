@@ -1,0 +1,366 @@
+openapi: 3.0.0
+info:
+  title: Fruitable API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: http://localhost:9900/api/v1
+    description: local server.
+components:
+  securitySchemes:
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []   
+paths:
+  /books/add-book:
+    post:
+      summary: Add Books.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - books
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                categories:
+                  type: string
+                rent:
+                  type: number
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string  
+  /books/update-book/{book_id}:
+    put:
+      summary: update Books.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: book_id
+          schema:
+            type: string
+          required: true
+          description: Update Books.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                categories:
+                  type: string
+                rent:
+                  type: number
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:  
+                  type: string
+  /books/delete-book/{book_id}:
+    delete:
+      summary: delete Category.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - books
+      parameters:
+        - in: path
+          name: book_id
+          schema:
+            type: string
+          required: true
+          description: delete book.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:  
+                  type: string 
+  /books/get-book/{book_id}:
+    get:
+      parameters:
+        - in: path
+          name: book_id
+          schema:
+            type: string
+          required: true
+          description: get book.
+      summary: get book.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - books
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string 
+  /books/list-book:
+    get:
+      summary: list books.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - books
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string    
+  /books/list-book-with-term:
+    get:
+      summary: Search for books by name with optional pagination.
+      description: Retrieve a list of books based on a search term in the name. Optionally paginate the results by providing skip and limit values.
+      tags:
+        - books
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          description: The search term to match in the book name.
+      responses:
+        '200':
+          description: Successfully retrieved books matching the search term.
+          content:
+            application/json:
+              schema:
+                type: object
+  /books/rent-price-range:
+    get:
+      summary: Get books within a specific rent price range
+      description: Retrieve a list of books with rent prices within the specified range.
+      tags:
+        - books
+      parameters:
+        - name: minRent
+          in: query
+          description: Minimum rent price for filtering books
+          required: true
+          schema:
+            type: number
+            format: float
+        - name: maxRent
+          in: query
+          description: Maximum rent price for filtering books
+          required: true
+          schema:
+            type: number
+            format: float
+      responses:
+        '200':
+          description: A list of books that match the rent price range
+          content:
+            application/json:
+              schema:
+                type: object
+  /books/matching-values:
+    get:
+      summary: Search books by category, search term, and rent range
+      description: Retrieve a list of books based on a specified category, search term (name), and rent per day range.
+      tags:
+        - books
+      parameters:
+        - name: category
+          in: query
+          description: The category of the book .
+          required: true
+          schema:
+            type: string
+        - name: searchTerm
+          in: query
+          description: The search term or book title.
+          required: true
+          schema:
+            type: string
+        - name: minRent
+          in: query
+          description: The minimum rent per day for the book.
+          required: true
+          schema:
+            type: number
+            format: float
+        - name: maxRent
+          in: query
+          description: The maximum rent per day for the book.
+          required: true
+          schema:
+            type: number
+            format: float
+      responses:
+        '200':
+          description: A list of books matching the search criteria
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /users/add-user:
+    post:
+      summary: Add Users.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+                address:
+                  type: string
+                mobile_no:
+                  type: number
+                email:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string 
+  /users/update-user/{user_id}:
+    put:
+      summary: update Users.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: string
+          required: true
+          description: Update Books.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+                address:
+                  type: string
+                mobile_no:
+                  type: number
+                email:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:  
+                  type: string   
+  /users/delete-user/{user_id}:
+    delete:
+      summary: delete Uers.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: string
+          required: true
+          description: delete book.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:  
+                  type: string   
+  /users/get-user/{user_id}:
+    get:
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: string
+          required: true
+          description: get book.
+      summary: get user.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - users
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string  
+  /users/list-user:
+    get:
+      summary: list users.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - users
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string                                                                                                                                 
