@@ -4,7 +4,7 @@ info:
   description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
   version: 0.1.9
 servers:
-  - url:https://library-nine-alpha.vercel.app/api/v1
+  - url: https://library-nine-alpha.vercel.app/api/v1
     description: local server.
 components:
   securitySchemes:
