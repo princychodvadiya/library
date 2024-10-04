@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://chodvadiyaprinci:princy6354@cluster0.gbuuhgc.mongodb.net/library')
+        await mongoose.connect(process.env.MONGODB_LIBARAY_URL)
             .then(() => console.log('MongoDB Connected!'))
             .catch((error) => console.log('MongoDB Disconnected!' + error));
     } catch (error) {
