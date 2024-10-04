@@ -16,6 +16,7 @@
     "nodemon": "^3.1.7",
     "swagger-ui-dist": "^5.17.14",
     "swagger-ui-express": "^5.0.1",
+    "vercel": "^37.6.1",
     "yamljs": "^0.3.0"
   }
 }
